@@ -2,19 +2,18 @@
 /*
  * Инициализация подключения к базе данных
  */
-$dblocation = "127.0.0.1";
-$dbname = "myshop";
-$dbuser = "root";
-$dbpasswd = "";
+function db() {
+    $dbHost = '127.0.0.1';
+    $dbUser = 'root';
+    $dbPass = '';
+    $dbName = 'myshop';
 
-//соединяемся с бд
-$db = mysqli_connect($dblocation, $dbuser, $dbpasswd, $dbname);
-if(! $db){
-    echo 'Ощибка доступа к Mysql';
-    exit();
-}
+    $db = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+    $db->set_charset('utf8');
 
-if(! mysqli_select_db($db, $dbname)){
-    echo 'Ошибка доступа к базе данных: {$dbname}';
-    exit();
+    if($db->connect_errno) {
+        die('MySQL access denied.');
+    }
+
+    return $db;
 }
