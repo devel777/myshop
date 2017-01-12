@@ -12,4 +12,3 @@
 
 {*центральный*}
 <div id="centerColumn">
-    center
