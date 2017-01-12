@@ -2,7 +2,7 @@
 /*
  * Инициализация подключения к базе данных
  */
-function db() {
+/*function db() {
     $dbHost = '127.0.0.1';
     $dbUser = 'root';
     $dbPass = '';
@@ -16,4 +16,18 @@ function db() {
     }
 
     return $db;
+}
+*/
+$dbHost = '127.0.0.1';
+$dbName = 'myshop';
+$dbUser = 'root';
+$dbPass = '';
+
+$db = mysql_connect($dbHost, $dbUser, $dbPass);
+if(! $db){
+    echo 'Ошибка доступа';
+    exit();
+}
+if(! mysql_select_db($dbName, $db)){
+    echo 'Ошибка: {$dbName}';
 }

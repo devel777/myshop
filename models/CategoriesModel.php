@@ -3,14 +3,35 @@
  * Модель для таблицы категорий (categories)
  */
 
-function getAllMainCatsWithChildren() {
+function getChildrenForCat($catId){
+    $sql = "SELECT *
+            FROM categories
+            WHERE
+            parent_id = '{$catId}'";
+    $rs = mysql_query($sql);
 
+    return createSmartyRsArray($rs);
+}
+
+function getAllMainCatsWithChildren()
+{
     $sql = "SELECT *
             FROM `categories`
             WHERE `parent_id` = 0";
-    $rs = db()->query($sql);
 
-    while($row = $rs->fetch_assoc()) echo 'id = ' . $row['name'] . '<br />';
+    $rs = mysql_query($sql);
 
-    return $rs;
+    $smartyRs = array();
+    while($row = mysql_fetch_assoc($rs)){
+
+        $rsChildren = getChildrenForCat($row['id']);
+
+        if($rsChildren){
+
+            $row['children'] = $rsChildren;
+        }
+        $smartyRs[] = $row;
+    }
+    return $smartyRs;
+
 }

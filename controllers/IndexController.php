@@ -10,7 +10,11 @@ function testAction(){
 }
 function indexAction($smarty){
     $rsCategories = getAllMainCatsWithChildren();
+
+    //d($rsCategories);
+
     $smarty->assign('pageTitle', 'Главная страница сайта');
+    $smarty->assign('rsCategories', $rsCategories);
     loadTemplate($smarty, 'header');
     loadTemplate($smarty, 'index');
     loadTemplate($smarty, 'footer');
